@@ -14,6 +14,13 @@ public:
         this->size = size;
         length = 0;
     }
+    Array()
+    { // creates array of given size with no elements
+        size = 10;
+        arr = new int[size];
+        length = 0;
+    }
+    ~Array() { delete[] arr; } // destructor
 
     void add(int val)
     { // add element at last
@@ -43,7 +50,7 @@ public:
 
     void insert(int index, int val) // inserts at a given index
     {
-        if ((index >= 0) && (index < length) && (length < size))
+        if ((index >= 0) && (index <= length) && (length < size))
         {
             int temp = length;
             while (temp != index)
@@ -81,7 +88,7 @@ public:
     }
     int binarySearch(int val)
     { // for sorted array only
-        int s = arr[0], e = arr[length - 1], mid;
+        int s = 0, e = length - 1, mid;
         while (s <= e)
         {
             mid = (s + e) / 2;
@@ -116,8 +123,8 @@ public:
     }
     int max()
     { // retrurns max element
-        int max = INT_MIN;
-        for (int i = 0; i < length; i++)
+        int max = arr[0];
+        for (int i = 1; i < length; i++)
         {
             if (arr[i] > max)
                 max = arr[i];
@@ -126,8 +133,8 @@ public:
     }
     int min()
     { // returns min element
-        int min = INT_MAX;
-        for (int i = 0; i < length; i++)
+        int min = arr[0];
+        for (int i = 1; i < length; i++)
         {
             if (arr[i] < min)
                 min = arr[i];
@@ -144,13 +151,33 @@ public:
         }
     }
     void shiftLeft()
-    {//shifts elements to one space left and last element becomes 0
+    { // shifts elements to one space left and last element becomes 0
         int temp = arr[0];
         for (int i = 0; i < length - 1; i++)
         {
             arr[i] = arr[i + 1];
         }
         arr[length - 1] = 0;
+    }
+    void Rearrange()
+    { // all negative elements shift towards left and positive ones on right
+        int i, j;
+        i = 0;
+        j = length - 1;
+
+        while (i < j)
+        {
+            while (arr[i] < 0)
+                i++;
+            while (arr[j] >= 0)
+                j--;
+            if (i < j)
+            {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
     }
 };
 
