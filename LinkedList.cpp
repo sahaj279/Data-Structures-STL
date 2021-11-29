@@ -113,25 +113,69 @@ void deleteNode(node *&head, int pos)
             p->next = t->next;
             delete t;
         }
-        else return;
+        else
+            return;
     }
+}
+void removeDuplicate(node *&head)//for sorted list
+{
+    node *p = head;
+    node *q = p->next;
+
+    while (q != NULL)
+    {
+        if (p->data != q->data)
+        {
+            p = q;
+            q = q->next;
+        }
+        else
+        {
+            p->next = q->next;
+            free(q);
+            q = p->next;
+        }
+    }
+}
+void reverse(node *&head){
+    //reversing links using sliding pointer
+    node *p=head;
+    node *q=NULL;
+    node *r=NULL;
+    while(p){
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+
+    }
+    head=q;
+}
+void concat(node *&first,node *&second){
+    node *p=first;
+    while(p->next!=NULL){
+        p=p->next;
+    }
+    p->next=second;
+    second=NULL;
 }
 int main()
 {
     // node *head = new node(10);//initially, head has data and points null
     node *head = 0; // initially head is null
     insert(head, 0, 0);
-    insert(head, 11, 1);
-    insert(head, 12, 2);
+    insert(head, 0, 1);
+    insert(head, 0, 2);
     insert(head, 3, 3);
-    insert(head, 4, 4);
-    insert(head, 5, 4);
-    insert(head, 0, 8);
-    display(head);//0 11 12 3 5 4
-    deleteNode(head,0);//nothing gets deleted
-    deleteNode(head,1);// 0 deleted
-    deleteNode(head,5);//4 deleted
-    deleteNode(head,15);//nothing gets deleted as 15 is out of bound
+    insert(head, 3, 4);
+    insert(head, 3, 4);
+    insert(head, 0, 4);
+    removeDuplicate(head);
+    display(head);        // 0 11 12 3 5 4
+    deleteNode(head, 0);  // nothing gets deleted
+    deleteNode(head, 1);  // 0 deleted
+    deleteNode(head, 5);  // 4 deleted
+    deleteNode(head, 15); // nothing gets deleted as 15 is out of bound
     // insertTail(head, 100);//doesnt work
     display(head);
     node *h1 = 0;
@@ -142,7 +186,9 @@ int main()
     insertTail(h1, 7);
     insertSorted(h1, 6);
     insertSorted(h1, 5);
-    display(h1);
+    reverse(h1);//7 6 5 4 3 2 1 
+    concat(h1,head);
+    display(h1);//7 6 5 4 3 2 1 3 0 3
 
     return 0;
 }
