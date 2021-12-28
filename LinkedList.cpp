@@ -164,31 +164,31 @@ int main()
     // node *head = new node(10);//initially, head has data and points null
     node *head = 0; // initially head is null
     insert(head, 0, 0);
-    insert(head, 0, 1);
-    insert(head, 0, 2);
-    insert(head, 3, 3);
-    insert(head, 3, 4);
-    insert(head, 3, 4);
-    insert(head, 0, 4);
-    removeDuplicate(head);
+    // insert(head, 0, 1);
+    // insert(head, 0, 2);
+    // insert(head, 3, 3);
+    // insert(head, 3, 4);
+    // insert(head, 3, 4);
+    // insert(head, 0, 4);
+    // removeDuplicate(head);
     display(head);        // 0 11 12 3 5 4
-    deleteNode(head, 0);  // nothing gets deleted
-    deleteNode(head, 1);  // 0 deleted
-    deleteNode(head, 5);  // 4 deleted
-    deleteNode(head, 15); // nothing gets deleted as 15 is out of bound
-    // insertTail(head, 100);//doesnt work
-    display(head);
-    node *h1 = 0;
-    insertTail(h1, 1);
-    insertTail(h1, 2);
-    insertTail(h1, 3);
-    insertTail(h1, 4);
-    insertTail(h1, 7);
-    insertSorted(h1, 6);
-    insertSorted(h1, 5);
-    reverse(h1);//7 6 5 4 3 2 1 
-    concat(h1,head);
-    display(h1);//7 6 5 4 3 2 1 3 0 3
+    // deleteNode(head, 0);  // nothing gets deleted
+    // deleteNode(head, 1);  // 0 deleted
+    // deleteNode(head, 5);  // 4 deleted
+    // deleteNode(head, 15); // nothing gets deleted as 15 is out of bound
+    // // insertTail(head, 100);//doesnt work
+    // display(head);
+    // node *h1 = 0;
+    // insertTail(h1, 1);
+    // insertTail(h1, 2);
+    // insertTail(h1, 3);
+    // insertTail(h1, 4);
+    // insertTail(h1, 7);
+    // insertSorted(h1, 6);
+    // insertSorted(h1, 5);
+    // reverse(h1);//7 6 5 4 3 2 1 
+    // concat(h1,head);
+    // display(h1);//7 6 5 4 3 2 1 3 0 3
 
     return 0;
 }

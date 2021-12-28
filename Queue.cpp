@@ -77,5 +77,8 @@ int main()
     cout << q.dequeue();
     cout << q.dequeue();
 
+    q.enqueue(6);
+    q.display();
+
     return 0;
 }
