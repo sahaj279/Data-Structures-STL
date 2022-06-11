@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 void print_vec(vector<int>v){
       for(int i=0;i<v.size();i++){
@@ -240,20 +241,105 @@ int diameter(Node*root,int maxi){
       maxi=max(maxi,lh+rh);
       return 1+max(lh,rh);
 }
+void verticalTraversal(Node *root){
+      map<int,map<int,multiset<int>>>m;//stores index(col),level and value of the node
+      queue<pair<Node*,pair<int,int>>>q;//stores node,index and level
+      if(root){
+            q.push({root,{0,0}});
+            while(!q.empty()){
+                  auto p=q.front();
+                  q.pop();
+                  Node *node=p.first;
+                  int col=p.second.first;
+                  int level=p.second.second;
+                  m[col][level].insert(node->data);
+                  if(node->left)q.push({node->left,{col-1,level+1}});
+                  if(node->right)q.push({node->right,{col+1,level+1}});
+
+
+            }
+            for(auto it:m){
+                  for(auto it1:it.second){
+                        for (int i:it1.second){
+                              cout<<i<<" ";
+                        }
+                  }
+                  cout<<endl;
+            }
+      }
+}
+void bottomView(Node *root){
+      map<int,int> m;//col and val
+      queue<pair<Node*,int>> q;//node and col
+      if(root){
+            q.push({root,0});
+            while(!q.empty()){
+                  auto it=q.front();
+                  q.pop();
+                  Node *node=it.first;
+                  int col=it.second;
+                  m[col]=node->data;
+                  if(node->left)q.push({node->left,col-1});
+                  if(node->right)q.push({node->right,col+1});
+                  
+            }
+            for(auto it:m){
+                  cout<<it.second<<" ";
+            }
+            cout<<endl;
+      }
+}
+void populate(map<int,int>&m,int level,Node*root){
+      if(root){
+            m[level]=root->data;
+            populate(m,level+1,root->left);
+            populate(m,level+1,root->right);
+            
+      }
+}
+void populateLeft(vector<int>&m,int level,Node*root){
+      if(root){
+            if(level==m.size()){
+            m.push_back(root->data);
+
+            }
+            populateLeft(m,level+1,root->left);
+            populateLeft(m,level+1,root->right);
+            
+      }
+}
+void rightView(Node *root){
+      map<int,int>m;//storing level and right most node value
+      populate(m,0,root);
+      for(auto it:m){
+            cout<<it.second<<" ";
+      }
+      cout<<endl;
+}
+void leftView(Node *root){
+      vector<int>m;//storing level and right most node value
+      populateLeft(m,0,root);
+      print_vec(m);
+      // for(auto it:m){
+      //       cout<<it.second<<" ";
+      // }
+      // cout<<endl;
+}
 
 int main()
 {
       class Node *root = new Node(1);
       root->left = new Node(2);
       root->right = new Node(3);
+      root->right->right = new Node(7);
       root->right->left = new Node(4);
       root->right->left->right=new Node(6);
       root->right->left->left=new Node(5);
       //   1
       //  / \
       // 2   3
-      //    /
-      //   4
+      //    / \
+      //   4   7
       //  / \
       // 5   6
       preorder(root);
@@ -274,6 +360,10 @@ int main()
       cout<<diameter(root,0);
       cout << endl;
       zigzag(root);
+      verticalTraversal(root);
+      bottomView(root);
+      rightView(root);
+      leftView(root);
       // just for streak
       return 0;
 }
